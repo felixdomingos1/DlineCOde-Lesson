@@ -1,64 +1,66 @@
-let toggleBtn = document.getElementById('toggle-btn');
-let body = document.body;
+const toggleBtn = document.getElementById('toggle-btn');
+const body = document.body;
 let darkMode = localStorage.getItem('dark-mode');
 
-const enableDarkMode = () =>{
-   toggleBtn.classList.replace('fa-sun', 'fa-moon');
-   body.classList.add('dark');
-   localStorage.setItem('dark-mode', 'enabled');
+function enableDarkMode() {
+  toggleBtn.classList.replace('fa-sun', 'fa-moon');
+  body.classList.add('dark');
+  localStorage.setItem('dark-mode', 'enabled');
 }
 
-const disableDarkMode = () =>{
-   toggleBtn.classList.replace('fa-moon', 'fa-sun');
-   body.classList.remove('dark');
-   localStorage.setItem('dark-mode', 'disabled');
+function disableDarkMode() {
+  toggleBtn.classList.replace('fa-moon', 'fa-sun');
+  body.classList.remove('dark');
+  localStorage.setItem('dark-mode', 'disabled');
 }
 
-if(darkMode === 'enabled'){
-   enableDarkMode();
+function toggleDarkMode() {
+  darkMode = localStorage.getItem('dark-mode');
+  darkMode === 'disabled' ? enableDarkMode() : disableDarkMode();
 }
 
-toggleBtn.onclick = (e) =>{
-   darkMode = localStorage.getItem('dark-mode');
-   if(darkMode === 'disabled'){
-      enableDarkMode();
-   }else{
-      disableDarkMode();
-   }
+if (darkMode === 'enabled') {
+  enableDarkMode();
 }
 
-let profile = document.querySelector('.header .flex .profile');
+toggleBtn.addEventListener('click', toggleDarkMode);
 
-document.querySelector('#user-btn').onclick = () =>{
-   profile.classList.toggle('active');
-   search.classList.remove('active');
-}
+const profile = document.querySelector('.header .flex .profile');
+const userBtn = document.querySelector('#user-btn');
 
-let search = document.querySelector('.header .flex .search-form');
+userBtn.addEventListener('click', () => {
+  profile.classList.toggle('active');
+  search.classList.remove('active');
+});
 
-document.querySelector('#search-btn').onclick = () =>{
-   search.classList.toggle('active');
-   profile.classList.remove('active');
-}
+const search = document.querySelector('.header .flex .search-form');
+const searchBtn = document.querySelector('#search-btn');
 
-let sideBar = document.querySelector('.side-bar');
+searchBtn.addEventListener('click', () => {
+  search.classList.toggle('active');
+  profile.classList.remove('active');
+});
 
-document.querySelector('#menu-btn').onclick = () =>{
-   sideBar.classList.toggle('active');
-   body.classList.toggle('active');
-}
+const sideBar = document.querySelector('.side-bar');
+const menuBtn = document.querySelector('#menu-btn');
+const closeBtn = document.querySelector('#close-btn');
 
-document.querySelector('#close-btn').onclick = () =>{
-   sideBar.classList.remove('active');
-   body.classList.remove('active');
-}
+menuBtn.addEventListener('click', () => {
+  sideBar.classList.toggle('active');
+  body.classList.toggle('active');
+});
 
-window.onscroll = () =>{
-   profile.classList.remove('active');
-   search.classList.remove('active');
+closeBtn.addEventListener('click', () => {
+  sideBar.classList.remove('active');
+  body.classList.remove('active');
+});
 
-   if(window.innerWidth < 1200){
-      sideBar.classList.remove('active');
-      body.classList.remove('active');
-   }
-}
+window.onscroll = () => {
+  profile.classList.remove('active');
+  search.classList.remove('active');
+
+  if (window.innerWidth < 1200) {
+    sideBar.classList.remove('active');
+    body.classList.remove('active');
+  }
+};
